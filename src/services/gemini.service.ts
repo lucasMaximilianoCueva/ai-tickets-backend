@@ -12,9 +12,11 @@ import "dotenv/config";
  */
 export type PriorityLevel = "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
 
-const API_KEY = process.env.GEMINI_API_KEY || "";
+const API_KEY = process.env.NODE_ENV === 'test' 
+  ? 'dummy-key-for-tests' 
+  : (process.env.GEMINI_API_KEY || '');
 
-if (!API_KEY) {
+if (!API_KEY && process.env.NODE_ENV !== 'test') {
   throw new Error("GEMINI_API_KEY is not defined in environment variables");
 }
 
