@@ -23,8 +23,8 @@ Backend API para gestión de tickets de soporte con análisis automático de pri
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <repository-url>
-cd AiTickets
+git clone https://github.com/lucasMaximilianoCueva/ai-tickets-backend.git
+cd ai-tickets-backend
 ```
 
 ### 2. Instalar dependencias
