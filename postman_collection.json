@@ -1,0 +1,295 @@
+{
+  "info": {
+    "name": "AI Tickets API",
+    "description": "Backend API para gestión de tickets con análisis de prioridad mediante IA (Gemini)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Verifica el estado del servidor"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Create Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"No puedo iniciar sesión, la pantalla se queda en blanco después de ingresar mis credenciales\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "Crea un nuevo ticket. La prioridad es asignada automáticamente por Gemini AI."
+          }
+        },
+        {
+          "name": "Create Ticket - CRITICA Example",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"El sistema de pagos está completamente caído, no podemos procesar ninguna transacción y estamos perdiendo dinero\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "Ejemplo de ticket que debería clasificarse como CRITICA"
+          }
+        },
+        {
+          "name": "Create Ticket - ALTA Example",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"El módulo de reportes no está funcionando, los usuarios no pueden generar informes pero el resto del sistema funciona\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "Ejemplo de ticket que debería clasificarse como ALTA"
+          }
+        },
+        {
+          "name": "Create Ticket - MEDIA Example",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Hay un error de formato en las fechas del dashboard, se muestran en formato incorrecto\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "Ejemplo de ticket que debería clasificarse como MEDIA"
+          }
+        },
+        {
+          "name": "Create Ticket - BAJA Example",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"¿Cómo puedo cambiar el color del tema de la aplicación?\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "Ejemplo de ticket que debería clasificarse como BAJA"
+          }
+        },
+        {
+          "name": "Get All Tickets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            },
+            "description": "Obtiene todos los tickets sin filtros"
+          }
+        },
+        {
+          "name": "Get Tickets by Status - ABIERTO",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?status=ABIERTO",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ABIERTO"
+                }
+              ]
+            },
+            "description": "Filtra tickets por estado ABIERTO"
+          }
+        },
+        {
+          "name": "Get Tickets by Status - EN_PROCESO",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?status=EN_PROCESO",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "EN_PROCESO"
+                }
+              ]
+            },
+            "description": "Filtra tickets por estado EN_PROCESO"
+          }
+        },
+        {
+          "name": "Get Tickets by Priority - CRITICA",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?priority=CRITICA",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"],
+              "query": [
+                {
+                  "key": "priority",
+                  "value": "CRITICA"
+                }
+              ]
+            },
+            "description": "Filtra tickets por prioridad CRITICA"
+          }
+        },
+        {
+          "name": "Get Tickets by Priority - ALTA",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?priority=ALTA",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"],
+              "query": [
+                {
+                  "key": "priority",
+                  "value": "ALTA"
+                }
+              ]
+            },
+            "description": "Filtra tickets por prioridad ALTA"
+          }
+        },
+        {
+          "name": "Get Ticket by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets", "1"]
+            },
+            "description": "Obtiene un ticket específico por su ID"
+          }
+        },
+        {
+          "name": "Update Ticket Status - EN_PROCESO",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"EN_PROCESO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/1/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets", "1", "status"]
+            },
+            "description": "Actualiza el estado de un ticket a EN_PROCESO"
+          }
+        },
+        {
+          "name": "Update Ticket Status - CERRADO",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CERRADO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/1/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets", "1", "status"]
+            },
+            "description": "Actualiza el estado de un ticket a CERRADO"
+          }
+        }
+      ]
+    }
+  ]
+}
